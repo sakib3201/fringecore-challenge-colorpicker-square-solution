@@ -1,8 +1,9 @@
-import { GPU } from "gpu.js";
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // @ts-ignore
 import { kernelFunction } from "./kernel";
+
+const GPU = (window as any).GPU;
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
