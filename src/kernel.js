@@ -7,27 +7,41 @@ export const kernelFunction = function (width, height, hue) {
   const x = Math.floor(i / 4 - y * width);
   const channel = i % 4;
 
-  // Calculate saturation based on x position
+  // Calculate saturation and lightness based on x and y positions
   const saturation = x / width;
+  const lightness = 1 - y / height;
 
-  // Calculate value (lightness) based on y position
-  const value = 1 - y / height;
-
-  // Calculate RGB components directly using hue, saturation, and value
+  // Calculate RGB components directly using hue, saturation, and lightness
   let red, green, blue;
 
-  if (hue <= 0.5) {
-    red = value * (1 - saturation + saturation * hue);
-    green = value * (1 + saturation - saturation * 2 * hue);
-    blue = value * saturation;
-  } else {
-    red = value * (1 + saturation - saturation * (1 - hue));
-    green = value * saturation;
-    blue = value * (1 - saturation + saturation * 2 * (1 - hue));
+  if (hue <= 0.165) {
+    red = lightness * (1 - saturation + saturation * hue);
+    green = lightness * (1 + saturation - saturation * 2 * hue);
+    blue = lightness * saturation;
+  } else if (hue <= .33) {
+    red = lightness * (1 - saturation + saturation * 2 * (1 - hue));
+    green = lightness * (1 + saturation - saturation * (1 - hue));
+    blue = lightness * saturation;
+  } else if (hue <= .495) {
+    red = lightness * saturation;
+    green = lightness * (1 + saturation - saturation * (1 - hue));
+    blue = lightness * (1 - saturation + saturation * 2 * (1 - hue));
+  } else if (hue <= .66) {
+    red = lightness * saturation;
+    green = lightness * (1 - saturation + saturation * 2 * (1 - hue));
+    blue = lightness * (1 + saturation - saturation * (1 - hue));
+  } else if (hue <= .825) {
+    red = lightness * (1 + saturation - saturation * (1 - hue));
+    green = lightness * saturation;
+    blue = lightness * (1 - saturation + saturation * 2 * (1 - hue));
+  } else if (hue <= 1) {
+    red = lightness * (1 - saturation + saturation * 2 * (1 - hue));
+    green = lightness * saturation;
+    blue = lightness * (1 + saturation - saturation * (1 - hue));
   }
 
-  if (channel === 0) return red * 255;
-  if (channel === 1) return green * 255;
-  if (channel === 2) return blue * 255;
-  if (channel === 3) return (y+x)%(width+height); // Full opacity
+  if (channel === 0) return (red * 255);
+  if (channel === 1) return (green * 255);
+  if (channel === 2) return (blue * 255);
+  if (channel === 3) return (y + x) % (width + height); // Full opacity
 };
