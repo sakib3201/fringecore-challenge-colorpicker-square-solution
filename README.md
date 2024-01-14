@@ -40,7 +40,7 @@ Finally before returning the color values to appropriate channels I multiplied t
 
 ## Possible improvements
 
-The implementation can be made cleaner if we put keep the task of assigning rgb values from saturation , lightness and hue into a separate function . We can also reduce code duplication by assigning the values of red , green and blue values through a loop or combination creating function instead of the if else ladder. As throughout the ladder we simply added all possible combination for different ranges of values of the hue.
+The implementation can be made cleaner if we put the task of assigning rgb values from saturation , lightness and hue into a separate function . We can also reduce code duplication by assigning the values of red , green and blue values through a loop or combination creating function instead of the if else ladder. As throughout the ladder we simply added all possible combination for different ranges of values of the hue.
 
 We could also drastically reduce the amount of code written if we used the Math library in js and made a pure mathmatecal implementation of HSL to RGB conversion like below:
 
