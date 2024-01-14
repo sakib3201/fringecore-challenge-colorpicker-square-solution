@@ -18,19 +18,19 @@ export const kernelFunction = function (width, height, hue) {
     red = lightness * (1 - saturation + saturation * hue);
     green = lightness * (1 + saturation - saturation * 2 * hue);
     blue = lightness * saturation;
-  } else if (hue <= .33) {
+  } else if (hue <= 0.33) {
     red = lightness * (1 - saturation + saturation * 2 * (1 - hue));
     green = lightness * (1 + saturation - saturation * (1 - hue));
     blue = lightness * saturation;
-  } else if (hue <= .495) {
+  } else if (hue <= 0.495) {
     red = lightness * saturation;
     green = lightness * (1 + saturation - saturation * (1 - hue));
     blue = lightness * (1 - saturation + saturation * 2 * (1 - hue));
-  } else if (hue <= .66) {
+  } else if (hue <= 0.66) {
     red = lightness * saturation;
     green = lightness * (1 - saturation + saturation * 2 * (1 - hue));
     blue = lightness * (1 + saturation - saturation * (1 - hue));
-  } else if (hue <= .825) {
+  } else if (hue <= 0.825) {
     red = lightness * (1 + saturation - saturation * (1 - hue));
     green = lightness * saturation;
     blue = lightness * (1 - saturation + saturation * 2 * (1 - hue));
@@ -43,5 +43,5 @@ export const kernelFunction = function (width, height, hue) {
   if (channel === 0) return red * 255;
   if (channel === 1) return green * 255;
   if (channel === 2) return blue * 255;
-  if (channel === 3) return (x + y) % imageDataLength; // diagonally increasing opacity
+  if (channel === 3) return x + y; // diagonally increasing opacity
 };
