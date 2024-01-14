@@ -11,9 +11,9 @@ export const kernelFunction = function (width, height, hue) {
   const saturation = x / width;
   const lightness = 1 - y / height;
 
-  // Calculate RGB components directly using hue, saturation, and lightness
   let red, green, blue;
 
+  // Control the rgb value by using hue to cover all possible combination of rgb values.
   if (hue <= 0.165) {
     red = lightness * (1 - saturation + saturation * hue);
     green = lightness * (1 + saturation - saturation * 2 * hue);
@@ -40,8 +40,8 @@ export const kernelFunction = function (width, height, hue) {
     blue = lightness * (1 + saturation - saturation * (1 - hue));
   }
 
-  if (channel === 0) return (red * 255);
-  if (channel === 1) return (green * 255);
-  if (channel === 2) return (blue * 255);
-  if (channel === 3) return (y + x) % (width + height); // Full opacity
+  if (channel === 0) return red * 255;
+  if (channel === 1) return green * 255;
+  if (channel === 2) return blue * 255;
+  if (channel === 3) return (x + y) % imageDataLength; // diagonally increasing opacity
 };
